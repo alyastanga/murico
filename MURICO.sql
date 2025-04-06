@@ -13,9 +13,9 @@ CREATE TABLE customers (
   PRIMARY KEY (_customer_id)
 ) ENGINE=InnoDB;
 
--- -----------------------------------------------------
+
 -- Table: customer_orders
--- -----------------------------------------------------
+
 CREATE TABLE customer_orders (
   _customer_order_id INT NOT NULL AUTO_INCREMENT,
   _customer_order_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -30,9 +30,9 @@ CREATE TABLE customer_orders (
   FOREIGN KEY (_customer_order_company_branch_id) REFERENCES company_branches(_company_branch_id)
 ) ENGINE=InnoDB;
 
--- -----------------------------------------------------
+
 -- Table: customer_delivery_orders
--- -----------------------------------------------------
+
 CREATE TABLE customer_delivery_orders (
   _customer_delivery_order_number CHAR(36) NOT NULL UNIQUE DEFAULT (UUID()),  -- tracking number for delivery
   customer_delivery_order_expected_date TIMESTAMP NOT NULL,
@@ -44,9 +44,9 @@ CREATE TABLE customer_delivery_orders (
   FOREIGN KEY (_customer_order_id) REFERENCES customer_orders(_customer_order_id)
 ) ENGINE=InnoDB;
 
--- -----------------------------------------------------
+
 -- Table: customer_order_items
--- -----------------------------------------------------
+
 CREATE TABLE customer_order_items (
   _customer_order_id INT NOT NULL,
   _item_id INT NOT NULL,
@@ -57,9 +57,9 @@ CREATE TABLE customer_order_items (
   FOREIGN KEY (_item_id) REFERENCES items(_item_id)
 ) ENGINE=InnoDB;
 
--- -----------------------------------------------------
+
 -- Table: customer_order_refunds
--- -----------------------------------------------------
+
 CREATE TABLE customer_order_refunds (
   _customer_order_refund_id INT NOT NULL AUTO_INCREMENT,
   _customer_order_refund_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -76,12 +76,12 @@ CREATE TABLE customer_order_refunds (
   FOREIGN KEY (_processed_by_user_id) REFERENCES users(user_id)
 ) ENGINE=InnoDB;
 
--- -----------------------------------------------------
+
 -- Table: customer_order_refund_items
--- -----------------------------------------------------
+
 CREATE TABLE customer_order_refund_items (
   _customer_order_refund_id INT NOT NULL,
-  _customer_order_item_id INT NOT NULL,  -- Note: references customer_order_items; adjust FK as needed for composite keys
+  _customer_order_item_id INT NOT NULL,  
   item_quantity INT NOT NULL,  -- Quantity refunded
   item_refund_amount DECIMAL(10,2) NOT NULL,  -- Total refund amount for this item
   
